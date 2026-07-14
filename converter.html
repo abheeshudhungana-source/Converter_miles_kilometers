@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unit Converter</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .converter-card {
+      background-color: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 24px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      background-color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background-color: #357abd;
+    }
+
+    .result {
+      font-size: 20px;
+      color: #333;
+      font-weight: bold;
+      min-height: 30px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="converter-card">
+    <h1>Unit Converter</h1>
+
+    <input type="number" id="inputValue" placeholder="Enter a number" />
+
+    <select id="conversionDirection">
+      <option value="mi-to-km">Miles → Kilometers</option>
+      <option value="km-to-mi">Kilometers → Miles</option>
+    </select>
+
+    <button onclick="convert()">Convert</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function convert() {
+      const input = document.getElementById('inputValue').value;
+      const direction = document.getElementById('conversionDirection').value;
+      const resultDiv = document.getElementById('result');
+
+      // Validation
+      if (input === '' || isNaN(input)) {
+        resultDiv.innerHTML = '<span class="error">Please enter a valid number.</span>';
+        return;
+      }
+
+      const number = parseFloat(input);
+      let result;
+      let label;
+
+      if (direction === 'mi-to-km') {
+        result = (number * 1.60934).toFixed(4);
+        label = `${number} mile(s) = <span style="color:#4a90e2">${result} km</span>`;
+      } else {
+        result = (number / 1.60934).toFixed(4);
+        label = `${number} km = <span style="color:#4a90e2">${result} mile(s)</span>`;
+      }
+
+      resultDiv.innerHTML = label;
+    }
+  </script>
+
+</body>
+</html>
